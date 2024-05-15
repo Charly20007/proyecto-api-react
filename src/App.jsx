@@ -2,11 +2,13 @@ import { useState } from "react"
 import { useEffect } from "react"
 
 const App = () => {
+  const API_ULR = import.meta.env.VITE_API_URL
+
   const [criptos, setCriptos] = useState()
   const [error, setError] = useState(null);
 
   useEffect(()=>{
-    fetch("https://api.coincap.io/v2/assets") //es una promesa devuelve dos cosas exitosa y fallar
+    fetch(`${API_ULR}assets`) //es una promesa devuelve dos cosas exitosa y fallar , FETCH se sobre entiendo que es un get
     .then((resp)=> resp.json()) //si exitoso, la respuesta se convierte en tipo json, corre otra promesa
     .then((data) => {
       setCriptos(data.data) //setear con informacion
