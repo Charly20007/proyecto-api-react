@@ -35,22 +35,26 @@ const App = () => {
   if(!criptos) return <p>Cargando...</p>
   
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 bg-gray-100 min-h-screen">
       <p className="text-2xl font-bold text-center mb-4">Lista de Criptomonedas</p>
       {error ? (
         <p className="text-red-500 text-center">{error}</p>
       ) : (
-        <ol className="list-decimal list-inside">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {criptos.map((cripto) => (
-            <li key={cripto.id} className="my-2 p-2 border-b border-gray-200">
-              <div className="flex justify-between items-center">
-                <span className="font-medium">{cripto.name}</span>
-                <span className="text-gray-500">${parseFloat(cripto.priceUsd).toFixed(2)}</span>
-                <span  className="text-gray-500">{cripto.symbol}</span>
+            <div key={cripto.id} className="bg-white shadow-md rounded-lg p-4">
+              <div className="flex flex-col items-center">
+                <span className="font-medium text-lg">{cripto.name}</span>
+                <span className="text-gray-500"><span className="font-bold text-black">Precio:</span> ${parseFloat(cripto.priceUsd).toFixed(4)}</span>
+                <span className="text-gray-500"><span className="font-bold text-black">Código:</span> {cripto.symbol}</span>
+                <span className="font-bold">
+                  <span className="font-bold text-black">Variación de 24h: </span>
+                   <span className={cripto.changePercent24Hr > 0 ? "text-green-600" : "text-red-500"}>{parseFloat(cripto.changePercent24Hr).toFixed(2)}%</span>
+                </span>
               </div>
-            </li>
+            </div>
           ))}
-        </ol>
+        </div>
       )}
     </div>
   )
