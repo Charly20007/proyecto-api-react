@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const CriptoPage = () => {
-    const params = useParams();
+    const params = useParams(); // es un objeto 
     const [moneda, setMonedas] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
