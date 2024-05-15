@@ -1,8 +1,9 @@
 import axios from "axios"
 import { useState } from "react"
 import { useEffect } from "react"
+import Card from "../UI/card"
 
-const App = () => {
+const Cuadricula = () => {
   const API_ULR = import.meta.env.VITE_API_URL
 
   const [criptos, setCriptos] = useState()
@@ -29,6 +30,7 @@ const App = () => {
       console.error("La petición fallo", err)
       setError("Hubo un problema al obtener los datos.");
     })//si falla mi peticion
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
 
@@ -41,18 +43,8 @@ const App = () => {
         <p className="text-red-500 text-center">{error}</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {criptos.map((cripto) => (
-            <div key={cripto.id} className="bg-white shadow-md rounded-lg p-4">
-              <div className="flex flex-col items-center">
-                <span className="font-medium text-lg">{cripto.name}</span>
-                <span className="text-gray-500"><span className="font-bold text-black">Precio:</span> ${parseFloat(cripto.priceUsd).toFixed(4)}</span>
-                <span className="text-gray-500"><span className="font-bold text-black">Código:</span> {cripto.symbol}</span>
-                <span className="font-bold">
-                  <span className="font-bold text-black">Variación de 24h: </span>
-                   <span className={cripto.changePercent24Hr > 0 ? "text-green-600" : "text-red-500"}>{parseFloat(cripto.changePercent24Hr).toFixed(2)}%</span>
-                </span>
-              </div>
-            </div>
+          {criptos.map(({id, name, priceUsd, symbol, changePercent24Hr, explorer }) => (
+            <Card key={id} id={id} name={name} priceUsd={priceUsd} symbol={symbol} changePercent24Hr={changePercent24Hr} explorer={explorer} />
           ))}
         </div>
       )}
@@ -60,4 +52,4 @@ const App = () => {
   )
 }
 
-export default App
+export default Cuadricula
