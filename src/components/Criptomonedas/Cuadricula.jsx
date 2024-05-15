@@ -7,7 +7,7 @@ const Cuadricula = () => {
   const API_ULR = import.meta.env.VITE_API_URL
 
   const [criptos, setCriptos] = useState()
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null)
 
   // useEffect(()=>{
   //   fetch(`${API_ULR}assets`) //es una promesa devuelve dos cosas exitosa y fallar , FETCH se sobre entiendo que es un get
