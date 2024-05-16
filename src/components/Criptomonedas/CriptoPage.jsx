@@ -1,55 +1,17 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
+import usePetition from "../../hooks/usePeticion";
+//pagina dinamica
 const CriptoPage = () => {
-    const API_ULR = import.meta.env.VITE_API_URL
-
-    const params = useParams(); // es un objeto 
-    const [moneda, setMonedas] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [history, setHistory] = useState([])
-
-    useEffect(() => {
-        axios.get(`${API_ULR}assets/${params.id}`)
-            .then((response) => {
-                setMonedas(response.data.data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                setError("Salio un error en la petición", error);
-                setLoading(false);
-            });
-
-        axios.get(`${API_ULR}assets/${params.id}/history?interval=d1`)
-            .then((response) => {
-                setHistory(response.data.data);
-            })
-            .catch(() => {
-                console.log("error")
-            });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [params.id]);
-
-    // useEffect(() => {
-    //     axios.get(`https://api.coincap.io/v2/assets/${params.id}/history?interval=d1`)
-    //         .then((response) => {
-    //             setHistory(response.data.data);
-    //         })
-    //         .catch(() => {
-    //             console.log("error")
-    //         });
-    // }, [params.id]);
+    const params = useParams(); // es un objeto permite obtener el url de la pagina dinamica
+    
+    const moneda = usePetition(`assets/${params.id}`)
+    const history = usePetition(`assets/${params.id}/history?interval=d1`)
 
 
-    if (loading) {
+    if ( !history || !moneda) {
         return <div className="flex justify-center items-center h-screen">Cargando...</div>;
     }
 
-    if (error) {
-        return <div className="flex justify-center items-center h-screen text-red-500">{error}</div>;
-    }
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
@@ -62,8 +24,7 @@ const CriptoPage = () => {
                         Volver
                     </Link>
                 </div>
-                {
-                    !history ? <p>Cargando</p> : <div className="overflow-x-auto">
+                <div className="overflow-x-auto">
                     <table className="w-full bg-white shadow-md rounded mb-4">
                         <thead>
                             <tr className="bg-gray-200 text-left">
@@ -81,7 +42,6 @@ const CriptoPage = () => {
                         </tbody>
                     </table>
                 </div>
-                }
             </div>
         </div>
     );
