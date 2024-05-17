@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 
 /* eslint-disable react/prop-types */
-const Card = ({id, name, priceUsd, symbol, changePercent24Hr, explorer }) => {
+const CardCuadricula = ({id, name, priceUsd, symbol, changePercent24Hr, explorer }) => {
     return(
         <div key={id} className="bg-white shadow-md rounded-lg p-4">
             <div className="flex flex-col items-center">
@@ -19,4 +19,4 @@ const Card = ({id, name, priceUsd, symbol, changePercent24Hr, explorer }) => {
     )
 }
 
-export default Card
+export default CardCuadricula

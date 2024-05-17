@@ -15,6 +15,7 @@ const usePetition = (endpoint) => {
             .catch(() => {
                 console.log("error")
             });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
     

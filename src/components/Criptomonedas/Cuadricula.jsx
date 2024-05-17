@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
 import { useEffect } from "react"
-import Card from "../UI/card"
+import CardCuadricula from "../UI/CardCuadricula"
 
 const Cuadricula = () => {
   const API_ULR = import.meta.env.VITE_API_URL
@@ -44,7 +44,7 @@ const Cuadricula = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {criptos.map(({id, name, priceUsd, symbol, changePercent24Hr, explorer }) => (
-            <Card key={id} id={id} name={name} priceUsd={priceUsd} symbol={symbol} changePercent24Hr={changePercent24Hr} explorer={explorer} />
+            <CardCuadricula key={id} id={id} name={name} priceUsd={priceUsd} symbol={symbol} changePercent24Hr={changePercent24Hr} explorer={explorer} />
           ))}
         </div>
       )}
